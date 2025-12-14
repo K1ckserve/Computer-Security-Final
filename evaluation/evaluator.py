@@ -5,10 +5,7 @@ import re
 from .scoring import classify_response_with_ai
 
 def estimate_tokens(text: str) -> int:
-    """
-    Cheap token estimate (works consistently across models).
-    Roughly ~4 chars per token is a common heuristic.
-    """
+
     if not text:
         return 0
     return max(1, len(text) // 4)

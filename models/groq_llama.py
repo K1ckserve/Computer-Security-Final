@@ -5,10 +5,6 @@ from dotenv import load_dotenv
 import os
 
 class GroqLlama:
-    """
-    Wrapper for Groq-hosted Llama models.
-    """
-
     def __init__(self, model_name="llama-3.1-8b-instant"):
         load_dotenv()
         api_key = os.getenv("GROQ_API_KEY")

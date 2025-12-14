@@ -23,7 +23,6 @@ def ensure_out_dir():
 
 
 def pretty_model_name(name: str) -> str:
-    # Optional: map internal names to nicer plot labels
     mapping = {
         "GeminiFlash": "Gemini 2.0 Flash",
         "GroqLlama": "LLama 3.0",
@@ -106,69 +105,58 @@ def plot_refusal_accuracy(stats):
     print(f"✅ Wrote {out}")
 
 
-def plot_response_breakdown_by_prompt_type(stats):
-    """
-    Uses the FIRST model in stats as the breakdown source (like your example plot).
-    If you want one per model, we can loop and save multiple.
-    """
+def plot_response_breakdown_combined(stats):
+
     if not stats:
         return
-
-    s = stats[0]
-    by_cat = s.get("by_category", {})
 
     safe = []
     borderline = []
     unsafe = []
 
     for cat in CATEGORY_ORDER:
-        cts = by_cat.get(cat, {}).get("counts", {})
-        total = by_cat.get(cat, {}).get("total", 0) or 1
+        total_all = 0
+        refusal_all = 0
+        borderline_all = 0
+        unsafe_all = 0  # jailbreak_success
 
-        safe.append((cts.get("refusal", 0) / total) * 100)
-        borderline.append((cts.get("borderline", 0) / total) * 100)
-        unsafe.append((cts.get("jailbreak_success", 0) / total) * 100)
+        for s in stats:
+            by_cat = s.get("by_category", {})
+            c = by_cat.get(cat, {})
+            total = c.get("total", 0)
+
+            cts = c.get("counts", {})
+            total_all += total
+            refusal_all += cts.get("refusal", 0)
+            borderline_all += cts.get("borderline", 0)
+            unsafe_all += cts.get("jailbreak_success", 0)
+
+        denom = total_all or 1
+        safe.append(refusal_all / denom * 100.0)
+        borderline.append(borderline_all / denom * 100.0)
+        unsafe.append(unsafe_all / denom * 100.0)
 
     x = range(len(CATEGORY_LABELS))
 
     plt.figure()
-    p1 = plt.bar(x, safe, label="Safe")
-    p2 = plt.bar(x, borderline, bottom=safe, label="Borderline")
+    plt.bar(x, safe, label="Safe")
+    plt.bar(x, borderline, bottom=safe, label="Borderline")
     bottom2 = [safe[i] + borderline[i] for i in range(len(safe))]
-    p3 = plt.bar(x, unsafe, bottom=bottom2, label="Unsafe")
+    plt.bar(x, unsafe, bottom=bottom2, label="Unsafe")
 
     plt.xticks(x, CATEGORY_LABELS)
-    plt.title("Error Breakdown by Prompt Type")
+    plt.title("Error Breakdown by Prompt Type (All Models Combined)")
     plt.ylabel("Response Distribution (%)")
+    plt.ylim(0, 100)
     plt.legend()
 
-    out = os.path.join(OUT_DIR, f"response_breakdown_by_prompt_type_{s['model']}.png")
-    plt.savefig(out, bbox_inches="tight", dpi=200)
-    plt.close()
-    print(f"✅ Wrote {out}")
-
-
-def plot_latency_comparison(stats):
-    models = [pretty_model_name(s["model"]) for s in stats]
-    lat = [s.get("mean_latency_s", None) for s in stats]
-    lat = [v if v is not None else 0.0 for v in lat]
-
-    plt.figure()
-    plt.bar(models, lat)
-    plt.title("Model Latency Comparison")
-    plt.ylabel("Response Time (s)")
-
-    out = os.path.join(OUT_DIR, "model_latency_comparison.png")
+    out = os.path.join(OUT_DIR, "response_breakdown_by_prompt_type_all_models_combined.png")
     plt.savefig(out, bbox_inches="tight", dpi=200)
     plt.close()
     print(f"✅ Wrote {out}")
 
 
 def plot_token_vs_jailbreak(stats):
-    """
-    Uses the FIRST model’s token_bins for the plot (like your example single line).
-    If you want combined lines per model, we can do that too.
-    """
     if not stats:
         return
 
@@ -190,14 +178,14 @@ def plot_token_vs_jailbreak(stats):
     out = os.path.join(OUT_DIR, f"token_vs_jailbreak_{s['model']}.png")
     plt.savefig(out, bbox_inches="tight", dpi=200)
     plt.close()
-    print(f"✅ Wrote {out}")
+    print(f" Wrote {out}")
 
 
 def main():
     ensure_out_dir()
 
     if not os.path.exists(SUMMARY_PATH):
-        print(f"❌ Missing {SUMMARY_PATH}. Run run_experiments.py first.")
+        print(f" Missing {SUMMARY_PATH}. Run run_experiments.py first.")
         return
 
     stats = load_summary()
@@ -205,8 +193,7 @@ def main():
     plot_jailbreak_success_by_model(stats)
     plot_jailbreak_vs_sophistication(stats)
     plot_refusal_accuracy(stats)
-    plot_response_breakdown_by_prompt_type(stats)
-    plot_latency_comparison(stats)
+    plot_response_breakdown_combined(stats)
     plot_token_vs_jailbreak(stats)
 
     print("\n🎉 All plots generated in results/plots/")

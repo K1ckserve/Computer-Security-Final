@@ -5,21 +5,14 @@ import json
 import glob
 from dotenv import load_dotenv
 
-# Import model wrappers (keep the ones you actually have)
 from models.groq_llama import GroqLlama
 from models.ollama_deepseek import OllamaDeepseek
 from models.gemini import GeminiFlash
 from models.ollama_qwen import OllamaQwen
 
-# OPTIONAL: only if you still want to try Gemini as a *target* model
-# from models.gemini import GeminiFlash
 
 from evaluation.evaluator import evaluate_prompts
 
-
-# ----------------------------------------------------
-# Load all prompts from /prompts/*.txt
-# ----------------------------------------------------
 def load_prompts():
     prompts_dir = "prompts/"
     files = glob.glob(os.path.join(prompts_dir, "*.txt"))
@@ -32,11 +25,6 @@ def load_prompts():
             prompts[category] = lines
 
     return prompts
-
-
-# ----------------------------------------------------
-# Save results into results/raw/<model>.json
-# ----------------------------------------------------
 def save_results(model_name, data):
     os.makedirs("results/raw", exist_ok=True)
     out_path = f"results/raw/{model_name}.json"
@@ -46,10 +34,6 @@ def save_results(model_name, data):
 
     print(f"✅ Saved raw results → {out_path}")
 
-
-# ----------------------------------------------------
-# Compute Statistics (Everything needed for plots)
-# ----------------------------------------------------
 def compute_stats(model_name, results):
     """
     Produces:
@@ -66,12 +50,10 @@ def compute_stats(model_name, results):
     labels = ["jailbreak_success", "borderline", "refusal", "error"]
     counts = {k: 0 for k in labels}
 
-    # per-category counts + latency
     by_category_counts = {}
     latency_all = []
     latency_by_category = {}
 
-    # token bins (you can tweak these)
     token_bins = [20, 30, 40, 50, 60, 70, 80]
     bin_counts = {b: {k: 0 for k in labels} for b in token_bins}
 
@@ -92,14 +74,12 @@ def compute_stats(model_name, results):
         by_category_counts.setdefault(cat, {k: 0 for k in labels})
         by_category_counts[cat][label] += 1
 
-        # latency
         lat = r.get("latency_s", None)
         if lat is not None and label != "error":
             latency_all.append(lat)
             latency_by_category.setdefault(cat, [])
             latency_by_category[cat].append(lat)
 
-        # token bins
         t = r.get("prompt_token_est", 0)
         b = bucket_token_count(t)
         bin_counts[b][label] += 1
@@ -107,12 +87,10 @@ def compute_stats(model_name, results):
     def pct(x, denom):
         return round((x / denom) * 100, 2) if denom else 0.0
 
-    # overall rates
     unsafe_rate = pct(counts["jailbreak_success"], total)
     borderline_rate = pct(counts["borderline"], total)
     refusal_rate = pct(counts["refusal"], total)
 
-    # per-category rates
     by_category = {}
     for cat, cts in by_category_counts.items():
         cat_total = sum(cts.values()) or 1
@@ -124,14 +102,12 @@ def compute_stats(model_name, results):
             "counts": cts,
         }
 
-    # latency summary
     mean_latency_s = round(sum(latency_all) / len(latency_all), 4) if latency_all else None
     mean_latency_by_category_s = {
         cat: (round(sum(vals) / len(vals), 4) if vals else None)
         for cat, vals in latency_by_category.items()
     }
 
-    # token-bin jailbreak likelihood
     token_bin_rates = []
     for b in token_bins:
         cts = bin_counts[b]
@@ -186,10 +162,6 @@ def print_comparison_table(all_stats):
               f"{str(stat.get('mean_latency_s')):<14}")
     print("=" * 90 + "\n")
 
-
-# ----------------------------------------------------
-# Main Experiment Runner
-# ----------------------------------------------------
 def main():
     load_dotenv()  # Load .env values if needed
 
@@ -198,8 +170,6 @@ def main():
         print("No prompt files found in prompts/*.txt")
         return
 
-    # Initialize models you want to test
-    # Remove GeminiFlash if you can't run it (no API key)
     models = [
         ("OllamaQwen", OllamaQwen()),
     ]
