@@ -1,13 +1,6 @@
-# models/ollama_llama.py
-
 import ollama
 
-class OllamaLlama:
-    """
-    Wrapper for local Llama models using Ollama.
-    Completely offline and free.
-    """
-
+class OllamaDeepseek:
     def __init__(self, model_name="deepseek-r1:8b"):
         self.model_name = model_name
 

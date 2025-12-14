@@ -1,0 +1,449 @@
+[
+  {
+    "model": "Qwen",
+    "total_prompts": 108,
+    "unsafe_rate": 2.78,
+    "borderline_rate": 24.07,
+    "refusal_rate": 73.15,
+    "counts": {
+      "jailbreak_success": 3,
+      "borderline": 26,
+      "refusal": 79,
+      "error": 0
+    },
+    "by_category": {
+      "adversarial": {
+        "total": 21,
+        "unsafe_rate": 0.0,
+        "borderline_rate": 14.29,
+        "refusal_rate": 85.71,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 3,
+          "refusal": 18,
+          "error": 0
+        }
+      },
+      "basic": {
+        "total": 21,
+        "unsafe_rate": 0.0,
+        "borderline_rate": 14.29,
+        "refusal_rate": 85.71,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 3,
+          "refusal": 18,
+          "error": 0
+        }
+      },
+      "moderate": {
+        "total": 21,
+        "unsafe_rate": 4.76,
+        "borderline_rate": 61.9,
+        "refusal_rate": 33.33,
+        "counts": {
+          "jailbreak_success": 1,
+          "borderline": 13,
+          "refusal": 7,
+          "error": 0
+        }
+      },
+      "multi_turn": {
+        "total": 45,
+        "unsafe_rate": 4.44,
+        "borderline_rate": 15.56,
+        "refusal_rate": 80.0,
+        "counts": {
+          "jailbreak_success": 2,
+          "borderline": 7,
+          "refusal": 36,
+          "error": 0
+        }
+      }
+    },
+    "mean_latency_s": 23.8195,
+    "mean_latency_by_category_s": {
+      "adversarial": 16.7692,
+      "basic": 17.3597,
+      "moderate": 32.5993,
+      "multi_turn": 26.027
+    },
+    "token_bins": [
+      {
+        "token_bin_leq": 20,
+        "total": 83,
+        "jailbreak_rate": 3.61,
+        "counts": {
+          "jailbreak_success": 3,
+          "borderline": 14,
+          "refusal": 66,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 30,
+        "total": 23,
+        "jailbreak_rate": 0.0,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 11,
+          "refusal": 12,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 40,
+        "total": 2,
+        "jailbreak_rate": 0.0,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 1,
+          "refusal": 1,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 50,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 60,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 70,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 80,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      }
+    ]
+  },
+  {
+    "model": "GroqLlama",
+    "total_prompts": 108,
+    "unsafe_rate": 4.63,
+    "borderline_rate": 25.0,
+    "refusal_rate": 70.37,
+    "counts": {
+      "jailbreak_success": 5,
+      "borderline": 27,
+      "refusal": 76,
+      "error": 0
+    },
+    "by_category": {
+      "adversarial": {
+        "total": 21,
+        "unsafe_rate": 9.52,
+        "borderline_rate": 4.76,
+        "refusal_rate": 85.71,
+        "counts": {
+          "jailbreak_success": 2,
+          "borderline": 1,
+          "refusal": 18,
+          "error": 0
+        }
+      },
+      "basic": {
+        "total": 21,
+        "unsafe_rate": 0.0,
+        "borderline_rate": 9.52,
+        "refusal_rate": 90.48,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 2,
+          "refusal": 19,
+          "error": 0
+        }
+      },
+      "moderate": {
+        "total": 21,
+        "unsafe_rate": 0.0,
+        "borderline_rate": 47.62,
+        "refusal_rate": 52.38,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 10,
+          "refusal": 11,
+          "error": 0
+        }
+      },
+      "multi_turn": {
+        "total": 45,
+        "unsafe_rate": 6.67,
+        "borderline_rate": 31.11,
+        "refusal_rate": 62.22,
+        "counts": {
+          "jailbreak_success": 3,
+          "borderline": 14,
+          "refusal": 28,
+          "error": 0
+        }
+      }
+    },
+    "mean_latency_s": 0.403,
+    "mean_latency_by_category_s": {
+      "adversarial": 0.2247,
+      "basic": 0.2273,
+      "moderate": 0.596,
+      "multi_turn": 0.478
+    },
+    "token_bins": [
+      {
+        "token_bin_leq": 20,
+        "total": 83,
+        "jailbreak_rate": 4.82,
+        "counts": {
+          "jailbreak_success": 4,
+          "borderline": 19,
+          "refusal": 60,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 30,
+        "total": 23,
+        "jailbreak_rate": 4.35,
+        "counts": {
+          "jailbreak_success": 1,
+          "borderline": 8,
+          "refusal": 14,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 40,
+        "total": 2,
+        "jailbreak_rate": 0.0,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 2,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 50,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 60,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 70,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 80,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      }
+    ]
+  },
+  {
+    "model": "Deepseek",
+    "total_prompts": 108,
+    "unsafe_rate": 1.85,
+    "borderline_rate": 13.89,
+    "refusal_rate": 84.26,
+    "counts": {
+      "jailbreak_success": 2,
+      "borderline": 15,
+      "refusal": 91,
+      "error": 0
+    },
+    "by_category": {
+      "adversarial": {
+        "total": 21,
+        "unsafe_rate": 0.0,
+        "borderline_rate": 4.76,
+        "refusal_rate": 95.24,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 1,
+          "refusal": 20,
+          "error": 0
+        }
+      },
+      "basic": {
+        "total": 21,
+        "unsafe_rate": 0.0,
+        "borderline_rate": 0.0,
+        "refusal_rate": 100.0,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 21,
+          "error": 0
+        }
+      },
+      "moderate": {
+        "total": 21,
+        "unsafe_rate": 0.0,
+        "borderline_rate": 19.05,
+        "refusal_rate": 80.95,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 4,
+          "refusal": 17,
+          "error": 0
+        }
+      },
+      "multi_turn": {
+        "total": 45,
+        "unsafe_rate": 4.44,
+        "borderline_rate": 22.22,
+        "refusal_rate": 73.33,
+        "counts": {
+          "jailbreak_success": 2,
+          "borderline": 10,
+          "refusal": 33,
+          "error": 0
+        }
+      }
+    },
+    "mean_latency_s": 18.5931,
+    "mean_latency_by_category_s": {
+      "adversarial": 12.6522,
+      "basic": 8.8583,
+      "moderate": 15.2861,
+      "multi_turn": 27.4516
+    },
+    "token_bins": [
+      {
+        "token_bin_leq": 20,
+        "total": 83,
+        "jailbreak_rate": 2.41,
+        "counts": {
+          "jailbreak_success": 2,
+          "borderline": 12,
+          "refusal": 69,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 30,
+        "total": 23,
+        "jailbreak_rate": 0.0,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 3,
+          "refusal": 20,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 40,
+        "total": 2,
+        "jailbreak_rate": 0.0,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 2,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 50,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 60,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 70,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      },
+      {
+        "token_bin_leq": 80,
+        "total": 0,
+        "jailbreak_rate": null,
+        "counts": {
+          "jailbreak_success": 0,
+          "borderline": 0,
+          "refusal": 0,
+          "error": 0
+        }
+      }
+    ]
+  }
+]
